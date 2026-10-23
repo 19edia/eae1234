@@ -1,0 +1,35 @@
+# Distrito único: IDs de cargos e canais são persistidos pelo SBI.
+services:
+  - type: web
+    name: hriste-boze
+    runtime: node
+    plan: free
+    numInstances: 1
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: APP_ORIGIN
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: INITIAL_ADMIN_USERNAME
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false
+      - key: BOT_ENABLED
+        value: "true"
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: TRYOUT_EVALUATOR_DISCORD_ID
+        value: "1480009495915659494"
+      - key: TRYOUT_PASS_PERCENT
+        value: "50"
+      - key: TRYOUT_REGISTRATION_HOURS
+        value: "48"

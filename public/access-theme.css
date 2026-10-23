@@ -1,0 +1,61 @@
+/* HRISTE BOZE / Entry to the district. */
+body.access-shell{background:#101010;color:#f0eee3;font-family:var(--font-body,"Manrope","Segoe UI",sans-serif);min-height:100dvh}
+.access-shell header{height:91px;padding:0 5vw;max-width:none;gap:22px;border-color:#353535;background:#111}
+.access-shell .brand{margin:0;gap:12px;text-decoration:none;color:#f0eee3}
+.access-shell .brand>span:last-child{font-size:14px;font-weight:750;color:#f0eee3;letter-spacing:.1em;display:block}
+.access-shell .brand small{display:block;font-family:var(--font-mono,monospace);font-size:7px;font-weight:400;letter-spacing:.19em;margin-top:5px;color:#aaa}
+.access-shell .brand .mark{width:40px!important;height:47px!important}
+.access-shell .tag{font-size:10px;font-weight:600;color:#e0ddcf;border:1px solid #52504e;padding:10px 15px;border-radius:4px;min-height:44px;display:flex;align-items:center;gap:20px}
+.access-shell .tag>span{font-size:19px;color:#ffe03e}
+.access-shell .tag:hover{background:#1c1b17;border-color:#b5a553;color:#fff;text-decoration:none}
+.access-shell main{max-width:1800px;display:grid;grid-template-columns:1.2fr .8fr;align-items:stretch;gap:0;padding:0;margin:auto;min-height:calc(100dvh - 151px)}
+.access-cover{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-width:0;overflow:hidden;padding:32px 7% 24px;background:linear-gradient(90deg,#101010df 0%,#101010b0 25%,#10101025 85%),linear-gradient(0deg,#101010b0,transparent 70%),url('/deepwoken-guild-art.svg') center center/cover no-repeat,#1b1b1b;border-right:1px solid #393939}
+.cover-coordinate{display:flex;align-items:center;justify-content:space-between;color:#e1ddc8;font-family:var(--font-mono,monospace);font-size:8px;letter-spacing:.1em}
+.cover-coordinate>span:last-child{font-size:32px;line-height:1;color:#efdf89}
+.cover-copy{padding:63px 0 50px}
+.access-shell .eyebrow{font-family:var(--font-mono,monospace);font-size:9px;font-weight:400;letter-spacing:.11em;color:#f0e4a6}
+.cover-copy>.eyebrow{display:flex;align-items:center;gap:10px;color:#eae6ce;margin:0 0 27px}
+.cover-copy>.eyebrow>span{width:5px;height:5px;border-radius:50%;background:#ffe03e}
+.access-shell h1{font-family:var(--font-display,"Barlow Condensed","Arial Narrow",sans-serif);font-size:clamp(80px,8.8vw,136px);letter-spacing:-.015em;line-height:.84;font-weight:700;color:#f5f2e1;margin:0 0 29px;position:relative}
+.access-shell h1>span{color:#ffe03e;font-size:.75em;display:inline-block;margin-top:9px;white-space:nowrap}
+.access-shell .intro{color:#d1cdb9;font-size:12px;line-height:1.95;margin:0;max-width:370px}
+.cover-footer{display:flex;justify-content:space-between;gap:12px;font-family:var(--font-mono,monospace);font-size:7px;letter-spacing:.1em;line-height:1.8;color:#cbc6ac;border-top:1px solid #e8dfae40;padding-top:19px}
+.access-control{display:flex;flex-direction:column;justify-content:center;padding:36px clamp(30px,5vw,85px) 30px;background:#131313;min-width:0}
+.access-shell .card{max-width:470px;width:100%;margin:auto;padding:0;border:0;border-radius:0;box-shadow:none;background:transparent}
+.access-topline{display:flex;justify-content:space-between;gap:13px;font-family:var(--font-mono,monospace);font-size:8px;letter-spacing:.09em;color:#949494;border-bottom:1px solid #393939;padding-bottom:20px;margin-bottom:39px}
+.access-shell .card>.eyebrow{font-size:8px;color:#f4df73;margin:0 0 14px}
+.access-shell .card h2{font-family:var(--font-display,"Barlow Condensed","Arial Narrow",sans-serif);font-size:clamp(54px,5.2vw,79px);font-weight:700;line-height:.88;letter-spacing:-.01em;color:#f0eee3;margin:0 0 19px}
+.access-shell .card>.muted{color:#aaa;font-size:11px;line-height:1.9;max-width:290px}
+.access-shell .card form{margin-top:28px}
+.access-shell .card label{font-size:10px;font-weight:600;color:#ccc;margin:21px 0 8px}
+.access-shell .card input{font-family:var(--font-body,sans-serif);font-size:12px;color:#f0eee3;background:#1b1b1b;border:1px solid #494949;border-radius:5px;min-height:49px;padding:13px 14px}
+.access-shell .card input::placeholder{color:#959595}
+.access-shell .password{background:#1b1b1b;border:1px solid #494949;border-radius:5px;min-width:0}
+.access-shell .password input{border:0;background:transparent}
+.access-shell .toggle{color:#b9b9b9;font-family:var(--font-body,sans-serif);font-size:10px;min-height:46px;padding:0 14px}
+.access-shell .submit{margin-top:27px;min-height:51px;border:0;border-radius:5px;background:#ffe03e;color:#161511;font-family:var(--font-body,sans-serif);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:13px;padding:14px 17px;box-shadow:none}
+.access-shell .submit>span{font-size:23px;line-height:1}
+.access-shell .submit:hover{background:#ffe665}
+.access-shell .help{padding-top:20px;border-top:1px solid #3b3b3b;margin-top:24px;font-size:11px;color:#c3c3c3}
+.access-shell .help summary{min-height:33px;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.access-shell .help summary::-webkit-details-marker{display:none}
+.access-shell .help summary>span{font-size:20px;color:#ffe76b}
+.access-shell .help[open] summary>span{transform:rotate(45deg)}
+.access-shell .help p{font-size:11px;line-height:1.85;color:#aaa}
+.access-shell .footnote{font-size:10px;color:#a3a3a3;margin:22px 0 0;line-height:1.9}
+.access-shell .footnote a{color:#f5e592;font-size:10px;text-decoration:none;display:inline-flex;gap:10px;align-items:center;min-height:40px}
+.access-shell .footnote a:hover{color:#fff6c5;text-decoration:underline;text-underline-offset:4px}
+.access-principle{display:flex;align-items:center;gap:15px;margin:33px auto 0;max-width:470px;width:100%;border-top:1px solid #353535;padding-top:22px}
+.access-principle>span{font-size:28px;color:#ffe03e;line-height:1}
+.access-principle p{font-family:var(--font-mono,monospace);font-size:7px;letter-spacing:.09em;color:#c8c3a9;margin:0;line-height:1.85}
+.access-principle strong{font-family:var(--font-body,sans-serif);font-size:8px;font-weight:400;letter-spacing:0;color:#8f8f8f}
+.access-shell .notice{font-size:11px;line-height:1.85;color:#f9eba2;background:#262521;border:1px solid #807438;border-radius:5px}
+.access-shell footer{padding:21px 5vw;background:#111;border-color:#343434;color:#999;font-family:var(--font-mono,monospace);font-size:7px;line-height:1.8;letter-spacing:.1em}
+.access-shell input:focus-visible,.access-shell button:focus-visible,.access-shell a:focus-visible,.access-shell summary:focus-visible{outline:2px solid #ffe03e;outline-offset:4px}
+.access-shell .password:focus-within{outline:2px solid #ffe03e;outline-offset:3px}.access-shell .password input:focus-visible{outline:none}
+@media(min-width:1700px){.cover-copy{padding-top:90px;padding-bottom:80px}.access-control{padding-top:50px;padding-bottom:40px}.access-shell h1{font-size:151px}.access-shell .card h2{font-size:84px}}
+@media(max-width:1100px){.access-shell main{grid-template-columns:1.05fr 1fr}.access-cover{padding-left:7%;padding-right:7%}.access-shell h1{font-size:91px}.access-shell h1>span{font-size:.7em}.access-control{padding:32px 35px}.access-shell .card h2{font-size:67px}.cover-footer>span:last-child{display:none}.cover-copy{padding:62px 0}.access-shell .intro{font-size:11px}.access-topline{margin-bottom:33px}}
+@media(max-width:800px){.access-shell header{height:80px;padding:0 25px}.access-shell .brand>span:last-child{font-size:11px}.access-shell .brand small{font-size:6px}.access-shell .brand .mark{width:33px!important;height:39px!important}.access-shell .tag{font-size:9px;padding:9px 11px;gap:12px}.access-shell main{display:block;max-width:none;padding:0}.access-cover{padding:25px 32px 21px;border-right:0;border-bottom:1px solid #393939;min-height:460px;background-position:center 48%}.cover-coordinate>span:last-child{font-size:27px}.cover-copy{padding:30px 0 34px}.access-shell h1{font-size:91px;max-width:500px;margin-bottom:21px}.access-shell h1>span{font-size:.77em}.cover-copy>.eyebrow{margin-bottom:19px;font-size:8px}.access-shell .intro{font-size:11px;max-width:310px}.cover-footer>span:last-child{display:inline}.access-control{padding:37px 30px 33px}.access-shell .card{max-width:480px}.access-topline{margin-bottom:33px}.access-shell .card h2{font-size:72px}.access-shell .card>.muted{font-size:12px;max-width:none}.access-shell .card label{font-size:11px}.access-shell .card input{font-size:16px}.access-shell .toggle{font-size:11px}.access-shell .submit{font-size:12px}.access-shell .help{font-size:12px}.access-shell .help summary{min-height:44px}.access-shell .footnote,.access-shell .footnote a{font-size:11px}.access-principle{max-width:480px}.access-shell footer{padding:22px 26px;font-size:6px;gap:16px}}
+@media(max-width:480px){.access-shell header{height:78px;padding:0 19px;gap:15px}.access-shell .brand{gap:9px}.access-shell .brand>span:last-child{font-size:10px}.access-shell .brand small{font-size:5px;letter-spacing:.15em}.access-shell .tag{font-size:8px;max-width:133px;line-height:1.6;gap:8px}.access-shell .tag>span{font-size:17px}.access-cover{padding:23px 25px 21px;min-height:429px;background-position:58% center}.cover-coordinate{font-size:7px}.cover-coordinate>span:last-child{font-size:24px}.access-shell h1{font-size:80px}.access-shell h1>span{font-size:.73em;letter-spacing:-.01em}.cover-copy>.eyebrow{font-size:7px;letter-spacing:.08em;gap:7px}.cover-copy{padding:25px 0 26px}.access-shell .intro{font-size:10px}.cover-footer{font-size:6px}.cover-footer>span:last-child{display:none}.access-control{padding:31px 27px}.access-topline{font-size:7px}.access-shell .card h2{font-size:67px}.access-shell .card>.eyebrow{font-size:7px}.access-shell .card>.muted{font-size:11px}.access-shell footer{display:flex;flex-direction:column;gap:9px;padding:21px 23px}}
+@media(prefers-reduced-motion:reduce){.access-shell *,.access-shell *:before,.access-shell *:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media(pointer:coarse){.access-shell button,.access-shell a,.access-shell summary{min-height:44px}.access-shell input{font-size:16px}}

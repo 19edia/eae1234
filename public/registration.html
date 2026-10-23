@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="theme-color" content="#0d0f10"><meta name="color-scheme" content="dark"><meta name="referrer" content="no-referrer">
+ <title>Seu convite · HRISTE BOZE</title>
+ <link rel="icon" href="/clan-mark.svg" type="image/svg+xml">
+ <link rel="stylesheet" href="/kage-brand.css"><link rel="stylesheet" href="/registration.css">
+ <script src="/registration.js" defer></script>
+</head>
+<body>
+ <a class="skip-link" href="#registration-main">Ir para o cadastro</a>
+ <div class="registration-shell">
+  <aside class="invitation-story" aria-label="HRISTE BOZE">
+   <a class="registration-brand" href="/membros"><img src="/clan-mark.svg" width="44" height="52" alt=""><span>HRISTE<small>BOZE / MULTIJOGOS</small></span></a>
+   <div class="story-heading"><p class="eyebrow">SEU TRYOUT. SEU PRÓXIMO PASSO.</p><h1>O PRÓXIMO<br>NOME É<br><span>O SEU.</span></h1><p class="story-description">Conclua seu cadastro dentro do prazo do convite.<br>Sua carteira HB-ID confirma seu lugar na guilda.</p></div>
+   <div class="story-insignia" aria-hidden="true"><span>✦</span><p>RESPEITO.<br>PRESENÇA.<br><strong>LEALDADE.</strong></p></div>
+   <div class="story-footer"><span>HRISTE BOZE</span><span>REGISTRO OFICIAL ↗</span></div>
+  </aside>
+  <main id="registration-main" class="registration-main">
+   <header class="registration-topbar"><span>SEU REGISTRO / HB-ID</span><a href="/membros">Já tenho uma conta <span aria-hidden="true">↗</span></a></header>
+   <div id="loading" class="registration-loading" role="status"><span class="loading-mark" aria-hidden="true"><img src="/clan-mark.svg" width="52" height="60" alt=""></span><p>Conferindo seu convite…</p><small>Preparando seu lugar na guilda.</small></div>
+   <section id="unavailable" class="unavailable" aria-labelledby="unavailable-title" hidden>
+    <span class="section-index" aria-hidden="true">HB / ACESSO</span><h2 id="unavailable-title" tabindex="-1">VAMOS CONFERIR<br>SEU CONVITE.</h2><p id="unavailable-message"></p><div class="action-row"><button id="reload-invite" type="button" class="primary">Tentar novamente <span aria-hidden="true">↻</span></button><a class="button secondary" href="/membros">Ir para o painel <span aria-hidden="true">↗</span></a></div><p class="form-help">Se o link expirou ou foi cancelado, peça um novo convite à equipe no Discord.</p>
+   </section>
+   <div id="registration-flow" hidden>
+    <div class="invitation-meta"><div><span class="meta-label">SEU CONVITE</span><strong id="invited-rank">Membro</strong><span id="invited-kind" class="kind-badge">MEMBRO DA GUILDA</span></div><span id="invited-expiry" class="invitation-expiry"></span></div>
+    <ol id="stepper" class="stepper" aria-label="Etapas do cadastro"><li data-step="details" aria-current="step"><span class="step-number" aria-hidden="true">01</span><span>Seus dados</span></li><li data-step="discord"><span class="step-number" aria-hidden="true">02</span><span>Seu Discord</span></li><li data-step="verify"><span class="step-number" aria-hidden="true">03</span><span>Sua conta</span></li></ol>
+    <p id="flow-message" class="flow-message" role="alert" hidden></p>
+    <section id="step-details" class="step-section" aria-labelledby="details-title">
+     <p class="eyebrow">01 / COMECE POR VOCÊ</p><h2 id="details-title" tabindex="-1">SUA HISTÓRIA<br>COMEÇA AQUI<span>.</span></h2><p class="section-description">Preencha seus dados para receber sua identidade oficial. A patente já foi definida pela equipe.</p>
+     <form id="details-form">
+      <div class="field"><label for="registration-name">Seu nome na carteira <span>*</span></label><input id="registration-name" name="name" autocomplete="name" maxlength="100" placeholder="Como você será conhecido na guilda" required></div>
+      <div class="form-grid"><div class="field"><label for="registration-game">Nick no jogo <span id="game-required">*</span></label><input id="registration-game" name="game_nick" maxlength="64" autocomplete="off" placeholder="Seu nome no jogo" required></div><div class="field"><label for="registration-roblox">Usuário Roblox <span id="roblox-required">*</span></label><input id="registration-roblox" name="roblox_username" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]{3,20}" autocomplete="off" placeholder="Seu @usuário" required><small>O usuário da conta, sem @.</small></div></div>
+      <div id="allied-gang-field" class="field" hidden><label for="registration-alliance">Sua guilda aliada <span>*</span></label><input id="registration-alliance" name="allied_gang" maxlength="100" autocomplete="organization" placeholder="Nome da sua guilda"></div>
+      <p id="ally-help" class="form-help" hidden>Como aliado, você pode deixar o nick e o Roblox em branco.</p><p id="details-restart-help" class="form-help" hidden>Salvar os dados novamente inicia uma nova confirmação do seu Discord.</p>
+      <div class="action-row"><button id="save-details" class="primary" type="submit">Encontrar meu Discord <span aria-hidden="true">→</span></button></div>
+     </form>
+     <p class="section-footnote"><span aria-hidden="true">↗</span> Depois da confirmação, sua carteira e seu painel estarão prontos.</p>
+    </section>
+    <section id="step-discord" class="step-section" aria-labelledby="discord-title" hidden>
+     <p class="eyebrow">02 / CONECTE SEU PERFIL</p><h2 id="discord-title" tabindex="-1">ENCONTRE<br>SEU DISCORD<span>.</span></h2><p class="section-description">Busque pelo seu nome ou usuário e escolha seu perfil no servidor da guilda.</p>
+     <form id="discord-search-form"><label for="discord-query">Nome ou usuário do Discord</label><div class="search-row"><input id="discord-query" type="search" minlength="2" maxlength="80" placeholder="Ex.: seu nome no servidor" autocomplete="off" required><button id="discord-search" type="submit" class="secondary">Buscar <span aria-hidden="true">↗</span></button></div></form>
+     <p id="search-state" class="search-state" role="status">Os resultados aparecerão aqui. Você precisa estar no servidor.</p><div id="discord-results" class="discord-results" aria-label="Perfis encontrados"></div>
+     <form id="discord-confirm-form" hidden><div class="selected-heading"><span>PERFIL ESCOLHIDO</span><span aria-hidden="true">↙</span></div><div id="selected-profile" class="selected-profile"></div><label class="checkbox-label" for="discord-consent"><input id="discord-consent" type="checkbox" required><span>Confirmo que este é o meu perfil no Discord.</span></label><p class="form-help">O bot enviará um código no privado desse perfil. Deixe as mensagens diretas do servidor ativadas.</p><button id="send-code" type="submit" class="primary">Este é meu perfil. Enviar código <span aria-hidden="true">→</span></button></form>
+     <div class="step-navigation"><button id="back-details" type="button" class="text-button">← Voltar aos meus dados</button><a href="/membros">Sair do cadastro</a></div>
+    </section>
+    <section id="step-verify" class="step-section" aria-labelledby="verify-title" hidden>
+     <p class="eyebrow">03 / SUA CONTA NA GUILDA</p><h2 id="verify-title" tabindex="-1">SÓ FALTA<br>CONFIRMAR<span>.</span></h2><p class="section-description">Confira o código enviado pelo bot e crie a senha que vai usar para entrar no seu painel.</p>
+     <div id="verification-profile" class="verification-profile"></div>
+     <form id="complete-form">
+      <div class="field"><label for="registration-code">Código recebido no privado do Discord <span>*</span></label><input id="registration-code" name="code" class="code-input" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" placeholder="000000" aria-describedby="code-expiry" required><div class="code-help"><small id="code-expiry">O código vale por 10 minutos.</small><button id="resend-code" type="button" class="text-button">Reenviar código</button></div></div>
+      <div class="password-heading"><label for="registration-password">Crie sua senha <span>*</span></label><button id="toggle-password" type="button" class="text-button" aria-pressed="false" aria-controls="registration-password registration-password-confirm">Mostrar senhas</button></div><input id="registration-password" name="password" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="Pelo menos 12 caracteres" aria-describedby="password-help" required>
+      <div id="password-strength" class="password-strength" data-strength="0" aria-hidden="true"><span></span><span></span><span></span><span></span></div><p id="password-help" class="form-help">Uma frase longa com palavras e números ajuda a proteger sua conta.</p>
+      <div class="field"><label for="registration-password-confirm">Repita sua senha <span>*</span></label><input id="registration-password-confirm" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="Digite a mesma senha" required></div>
+      <button id="complete-registration" class="primary" type="submit">Criar minha conta e carteira <span aria-hidden="true">↗</span></button>
+     </form>
+     <p class="section-footnote">Sua carteira será vinculada ao Discord confirmado e à patente deste convite.</p><div class="step-navigation"><button id="back-discord" type="button" class="text-button">← Escolher outro perfil</button><a href="/membros">Sair do cadastro</a></div>
+    </section>
+   </div>
+   <section id="registration-success" class="registration-success" aria-labelledby="success-title" hidden>
+    <div class="success-stamp" aria-hidden="true"><img src="/clan-mark.svg" width="52" height="62" alt=""><span>REGISTRO CONFIRMADO / HB-ID</span></div><p class="eyebrow">AGORA VOCÊ FAZ PARTE.</p><h2 id="success-title" tabindex="-1">BEM-VINDO<br>AA GUILDA<span>.</span></h2><p id="success-greeting" class="section-description"></p>
+    <div class="issued-identity"><div class="identity-top"><span>HRISTE BOZE</span><span aria-hidden="true">↗</span></div><p class="meta-label">SUA IDENTIDADE OFICIAL</p><strong id="issued-idrkc" class="issued-idrkc"></strong><div class="identity-person"><strong id="issued-name"></strong><span id="issued-rank"></span></div><div class="identity-bottom"><span>DISCORD CONFIRMADO</span><span>REGISTRO DA GUILDA</span></div></div>
+    <p id="success-message" class="flow-message" role="status" hidden></p><div class="success-actions"><button id="download-new-card" class="primary" type="button">Baixar minha carteira PNG <span aria-hidden="true">↓</span></button><a id="enter-member-panel" class="button secondary" href="/membros">Entrar no meu painel <span aria-hidden="true">↗</span></a></div>
+    <div class="redirect-note"><p id="redirect-text">Você irá para seu painel em <strong id="redirect-seconds">15</strong> segundos.</p><button id="pause-redirect" class="text-button" type="button" aria-pressed="false">Pausar e ficar aqui</button></div><p class="form-help">Guarde o PNG original. Ele será usado para confirmar sua identidade em tickets e denúncias. Sua carteira também entra na fila de entrega do bot.</p>
+   </section>
+   <footer class="registration-footer"><span>UMA GUILDA. UM JURAMENTO.</span><span>HRISTE / BOZE</span></footer>
+  </main>
+ </div>
+</body>
+</html>

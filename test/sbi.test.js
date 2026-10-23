@@ -1,0 +1,73 @@
+import {test,before,after} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {PGlite} from '@electric-sql/pglite';
+import {Collection,PermissionFlagsBits as P} from 'discord.js';
+import {loadSbiConfig,saveSbiDistrict,canConfigureDestination,DISTRICT_NAME} from '../src/sbi.js';
+import {createProvisionHandler} from '../src/provision.js';
+import {readConfig} from '../src/config.js';
+import {rankRoles,categories,textChannels,voiceChannels} from '../src/server-layout.js';
+const totalChannels=categories.length+textChannels.length+voiceChannels.length;
+const oldGuild='11111111111111111',targetGuild='22222222222222222',central='33333333333333333';
+let db,pool;
+before(async()=>{
+ db=new PGlite();await db.exec(await readFile(new URL('../src/sbi-schema.sql',import.meta.url),'utf8'));
+ await db.exec('CREATE TABLE staff(id SERIAL PRIMARY KEY,active BOOLEAN DEFAULT TRUE,role TEXT,discord_id TEXT,discord_verified_at TIMESTAMPTZ)');
+ pool={query:async(sql,args)=>{if(sql.includes('pg_try_advisory_lock'))return {rows:[{locked:true}],rowCount:1};if(sql.includes('pg_advisory_unlock'))return {rows:[{}],rowCount:1};const r=await db.query(sql,args);return {...r,rowCount:r.affectedRows||r.rows.length};},connect:async()=>({...pool,release(){}})};
+});
+after(async()=>db?.close());
+const config=()=>({sbi:true,divisions:[],sourceGuilds:[oldGuild],legacyDistrict:{id:1,guild:oldGuild,memberRole:'44444444444444444'}});
+async function reset(){await db.exec('DELETE FROM sbi_district; DELETE FROM staff;');}
+test('fresh SBI accepts missing Discord ID variables and ignores obsolete division 2 configuration',()=>{
+ const c=readConfig({NODE_ENV:'test',APP_ORIGIN:'http://localhost:3000',DATABASE_URL:'postgresql://user:password@localhost/db',SESSION_SECRET:'s'.repeat(40),DISCORD_TOKEN:'t'.repeat(40),DIV_2_GUILD_ID:'obsolete'});
+ assert.deepEqual(c.divisions,[]);assert.equal(c.sbi,true);assert.equal(c.hydraInvite,'');
+});
+test('partial SBI state survives restart, only activates when complete, and keeps the same divisions array',async()=>{
+ await reset();const c=config(),reference=c.divisions;await loadSbiConfig(pool,c);assert.equal(c.sbiStatus,'unconfigured');
+ await saveSbiDistrict(pool,c,{guild:targetGuild,rankRoles:{leader:'55555555555555555'},resources:{news:'66666666666666666'}});
+ const restart={divisions:[],sourceGuilds:[]};await loadSbiConfig(pool,restart);assert.deepEqual(restart.divisions,[]);assert.equal(restart.sbiState.rankRoles.leader,'55555555555555555');assert.deepEqual(restart.sourceGuilds,[oldGuild]);
+ await saveSbiDistrict(pool,c,{...c.sbiState,news:'66666666666666666'},{complete:true});assert.equal(c.divisions,reference);assert.equal(reference.length,1);assert.equal(reference[0].name,DISTRICT_NAME);
+ const ready={divisions:[],sourceGuilds:[]};await loadSbiConfig(pool,ready);assert.equal(ready.divisions[0].guild,targetGuild);assert.equal(ready.divisions[0].news,'66666666666666666');
+});
+test('changing guild requires a verified, active central admin or subleader',async()=>{
+ await reset();const c=config();await loadSbiConfig(pool,c);assert.equal(await canConfigureDestination(pool,c,oldGuild,central),true);assert.equal(await canConfigureDestination(pool,c,targetGuild,central),false);
+ await pool.query("INSERT INTO staff(role,discord_id) VALUES('admin',$1)",[central]);assert.equal(await canConfigureDestination(pool,c,targetGuild,central),false);
+ await pool.query('UPDATE staff SET discord_verified_at=now()');assert.equal(await canConfigureDestination(pool,c,targetGuild,central),true);
+ await pool.query("UPDATE staff SET role='moderador'");assert.equal(await canConfigureDestination(pool,c,targetGuild,central),false);
+ await pool.query("UPDATE staff SET role='sublider'");assert.equal(await canConfigureDestination(pool,c,targetGuild,central),true);
+ await pool.query('UPDATE staff SET active=FALSE');assert.equal(await canConfigureDestination(pool,c,targetGuild,central),false);
+});
+test('global /criar saves the district, publishes after persistence and resumes without duplicating resources',async()=>{
+ await reset();const c={divisions:[],sourceGuilds:[]};await loadSbiConfig(pool,c);let sequence=0,published=0,reconciled=0;
+ const roles=new Collection(),channels=new Collection();
+ const me={id:'99999999999999999',permissions:{has:()=>true},roles:{highest:{comparePositionTo:()=>1}}};
+ const guild={id:targetGuild,name:DISTRICT_NAME,ownerId:central,members:{fetchMe:async()=>me,fetch:async()=>({permissions:{has:()=>true}})},roles:{fetch:async()=>roles,create:async data=>{const r={...data,id:String(70000000000000000n+BigInt(++sequence)),editable:true,permissions:{has:()=>false},edit:async function(v){Object.assign(this,v)}};roles.set(r.id,r);return r;}},channels:{fetch:async()=>channels,create:async data=>{const ch={...data,id:String(80000000000000000n+BigInt(++sequence)),edit:async function(v){Object.assign(this,v)}};channels.set(ch.id,ch);return ch;}}};
+ const handler=createProvisionHandler({guilds:{fetch:async()=>guild}},c.divisions,{pool,config:c,onConfigured:async d=>{assert.equal(c.sbiStatus,'ready');assert.equal(c.divisions[0].guild,d.guild);assert.ok(d.news);published++;},onRolesConfigured:async d=>{assert.equal(c.sbiStatus,'ready');assert.equal(c.sbiState.memberRole,d.memberRole);assert.ok(channels.get(d.resources.general).permissionOverwrites.some(p=>p.id===d.memberRole));reconciled++;return 3;}});
+ const i={guildId:targetGuild,user:{id:central},isChatInputCommand:()=>true,commandName:'criar',deferReply:async()=>{},editReply:async function(v){this.result=v}};
+ const configure={...i,commandName:'configurar',options:{getSubcommand:()=> 'cargos'}};
+ await handler(configure);assert.match(configure.result.content,/Use \/criar primeiro/);assert.equal(roles.size,0);
+ await handler(i);assert.match(i.result.content,/Guilda configurada/);assert.equal(c.divisions.length,1);assert.equal(published,1);assert.equal(i.result.files.length,1);assert.match(i.result.files[0].name,/\.txt$/);assert.equal(roles.size,rankRoles.length);assert.equal(channels.size,totalChannels);
+ const news=channels.get(c.divisions[0].news);assert.ok(news.permissionOverwrites.find(p=>p.id===targetGuild).allow.includes(P.ViewChannel));assert.ok(news.permissionOverwrites.find(p=>p.id===targetGuild).deny.includes(P.SendMessages));
+ await handler(i);assert.equal(published,2);assert.equal(roles.size,rankRoles.length);assert.equal(channels.size,totalChannels);
+ const restart={divisions:[],sourceGuilds:[]};await loadSbiConfig(pool,restart);assert.equal(restart.divisions[0].resources.news,news.id);
+ const oldMember=c.sbiState.memberRole;roles.delete(oldMember);
+ await handler(configure);assert.equal(reconciled,1);assert.match(configure.result.content,/enfileirada para 3 cadastro/);assert.equal(published,2);
+ const newMember=c.sbiState.memberRole;assert.notEqual(newMember,oldMember);assert.equal(roles.size,rankRoles.length);assert.equal(channels.size,totalChannels);assert.equal(c.sbiStatus,'ready');assert.equal(c.sbiState.permissionRepairPending,undefined);
+ assert.ok(channels.get(c.sbiState.resources.general).permissionOverwrites.some(p=>p.id===newMember));assert.ok(!channels.get(c.sbiState.resources.general).permissionOverwrites.some(p=>p.id===oldMember));
+ await handler(configure);assert.equal(reconciled,2);assert.equal(c.sbiState.memberRole,newMember);
+ const wrongGuild={...configure,guildId:oldGuild};await handler(wrongGuild);assert.match(wrongGuild.result.content,/não transfere/);assert.equal(reconciled,2);
+ const invalidAction={...configure,options:{getSubcommand:()=> 'invalid'}};await handler(invalidAction);assert.match(invalidAction.result.content,/Escolha/);assert.equal(reconciled,2);
+ const leader=roles.get(c.sbiState.rankRoles.leader);leader.permissions={has:bit=>bit===P.BanMembers};
+ await handler(configure);assert.match(configure.result.content,/permissões incompatíveis/);assert.equal(reconciled,2);
+ leader.permissions={has:()=>false};
+ me.roles.highest.comparePositionTo=role=>role.id===leader.id?0:1;
+ await handler(configure);assert.match(configure.result.content,/precisa ficar abaixo/);assert.equal(reconciled,2);
+ me.roles.highest.comparePositionTo=()=>1;
+ const permissions={...configure,options:{getSubcommand:()=> 'permissoes'}};await handler(permissions);assert.match(permissions.result.content,new RegExp(`Permissões atualizadas em ${totalChannels}`));assert.equal(reconciled,2);
+ const finalConfig={divisions:[],sourceGuilds:[]};await loadSbiConfig(pool,finalConfig);assert.equal(finalConfig.divisions[0].memberRole,newMember);
+ const general=channels.get(c.sbiState.resources.general),originalEdit=general.edit;
+ roles.delete(newMember);general.edit=async()=>{throw Error('temporary Discord failure');};
+ await handler(configure);assert.match(configure.result.content,/Não foi possível/);assert.equal(reconciled,2);assert.equal(c.sbiState.permissionRepairPending,true);
+ const repairedId=c.sbiState.memberRole;assert.notEqual(repairedId,newMember);
+ general.edit=originalEdit;await handler(configure);assert.equal(reconciled,3);assert.equal(c.sbiState.permissionRepairPending,undefined);assert.equal(c.sbiState.memberRole,repairedId);assert.equal(roles.size,rankRoles.length);
+});

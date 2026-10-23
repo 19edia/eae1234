@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="theme-color" content="#0d0f10"><meta name="color-scheme" content="dark">
+ <title>Meu guilda · HRISTE BOZE</title>
+ <link rel="stylesheet" href="/member.css"><link rel="stylesheet" href="/district-theme.css"><link rel="stylesheet" href="/kage-brand.css"><link rel="stylesheet" href="/member-theme.css"><link rel="stylesheet" href="/embed-renderer.css">
+ <script src="/embed-renderer.js" defer></script><script src="/discord-profile.js" defer></script><script src="/member.js" defer></script>
+</head>
+<body class="member-shell">
+ <div id="boot" class="boot" role="status"><span class="boot-mark" aria-hidden="true">✦</span><span>Abrindo seu guilda…</span></div>
+ <main id="access" class="access" hidden>
+  <section class="access-story">
+   <a href="/" class="wordmark"><span class="crest" aria-hidden="true">HB</span><span>HRISTE<br><small>BOZE / MULTIJOGOS</small></span></a>
+   <div class="story-copy"><p class="eyebrow"><span class="signal-dot"></span> PORTAL DO MEMBRO</p><h1>SEU JURAMENTO.<br><span>SUA GUILDA.</span></h1><p>A força está em quem caminha ao nosso lado. Entre. A guilda também é seu.</p><div class="story-seal"><span>✦</span><div>UMA COMUNIDADE.<br><strong>UM ÚNICO JURAMENTO.</strong></div></div></div>
+   <div class="story-footer"><span>HRISTE BOZE</span><span>RESPEITO / PRESENÇA / LEALDADE</span></div>
+  </section>
+  <section class="access-form" aria-labelledby="access-title">
+   <div class="access-form-top"><span>ACESSO / MEMBROS</span><span>01 — HB</span></div>
+   <p class="eyebrow">A GUILDA É SEU.</p><h2 id="access-title">BOM TER<br>VOCÊ AQUI.</h2><p class="muted" id="access-description">Entre com seu HB-ID para acompanhar a guilda.</p>
+   <div class="access-tabs" role="group" aria-label="Tipo de acesso"><button type="button" id="login-tab" class="selected" aria-pressed="true">Entrar</button><button type="button" id="signup-tab" aria-pressed="false">Primeiro acesso</button><button type="button" id="card-login-tab" aria-pressed="false">Com carteira</button></div>
+   <form id="credentials-form">
+    <label for="idrkc">Seu HB-ID</label><input id="idrkc" name="idrkc" inputmode="numeric" pattern="[0-9]{16}" minlength="16" maxlength="16" autocomplete="username" placeholder="16 números da sua carteira" required>
+    <label for="password">Senha</label><input id="password" name="password" type="password" maxlength="128" autocomplete="current-password" placeholder="Sua senha" required>
+    <div id="password-again-row" hidden><label for="password-again">Confirme sua senha</label><input id="password-again" type="password" maxlength="128" autocomplete="new-password"></div>
+    <p id="signup-help" class="form-help" hidden>Use pelo menos 12 caracteres. O código de confirmação será enviado ao Discord já vinculado ao seu HB-ID.</p><button id="credentials-submit" class="primary" type="submit">Entrar na guilda <span aria-hidden="true">↗</span></button>
+   </form>
+   <form id="code-form" hidden><div class="code-note"><strong>Confira seu privado no Discord.</strong><p>O código vale por 10 minutos. Permita mensagens do bot para recebê-lo.</p></div><label for="code">Código de confirmação</label><input id="code" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" placeholder="000000" required><button type="submit" class="primary">Confirmar e entrar ↗</button><button type="button" id="restart-signup" class="subtle">Voltar e solicitar outro código</button></form>
+   <form id="card-login-form" hidden>
+    <div class="card-login-upload"><span class="card-login-glyph" aria-hidden="true"><svg viewBox="0 0 52 34"><rect x="1" y="1" width="50" height="32" rx="3"/><path d="M9 10v14m4-14v14m6-14v14m3-14v14m7-14v14m5-14v14m3-14v14m6-14v14"/></svg></span><strong>SUA CARTEIRA É O COMEÇO.</strong><p>Selecione a imagem original da sua carteira HB-ID.</p><label for="card-login-file" class="card-login-picker"><span>Escolher carteira <span aria-hidden="true">↗</span></span><input id="card-login-file" name="card" type="file" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" aria-describedby="card-login-file-help card-login-file-details" required></label><small id="card-login-file-help">PNG, JPG ou WebP · até 8 MB · HBCode visível</small></div>
+    <div id="card-login-selected" class="card-login-selected" hidden><img id="card-login-preview" alt="Prévia da carteira selecionada"><div><strong id="card-login-file-name"></strong><p id="card-login-file-details"></p></div><button type="button" id="card-login-remove" class="subtle" aria-label="Remover carteira selecionada">×</button></div>
+    <button id="card-login-submit" type="submit" class="primary" disabled>Ler minha carteira <span aria-hidden="true">↗</span></button><p class="form-help" id="card-login-explanation">Conferimos o HBCode da sua carteira e enviamos um código no seu Discord. Confirme o código para entrar.</p>
+   </form>
+   <form id="card-login-code-form" hidden>
+    <div class="code-note"><strong>Carteira reconhecida.</strong><p id="card-login-code-description">Confira o código enviado no seu privado do Discord para concluir o acesso.</p></div>
+    <label for="card-login-code">Código recebido no Discord</label><input id="card-login-code" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" placeholder="000000" required>
+    <div id="card-login-password-row" hidden><label for="card-login-password">Crie sua senha</label><input id="card-login-password" name="password" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="Pelo menos 12 caracteres"><label for="card-login-password-again">Confirme sua senha</label><input id="card-login-password-again" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="Repita a senha"><p class="form-help">Você também poderá usar essa senha para entrar com seu HB-ID.</p></div>
+    <button id="card-login-confirm" type="submit" class="primary">Confirmar e entrar <span aria-hidden="true">↗</span></button><button id="card-login-restart" type="button" class="subtle">Voltar e ler outra carteira</button>
+   </form>
+   <p id="access-message" class="form-message" role="status" aria-live="polite"></p>
+   <p class="access-bottom">Ainda não tem um HB-ID? Solicite seu tryout no Discord.<br><a href="/">Acesso da moderação <span aria-hidden="true">↗</span></a></p>
+  </section>
+ </main>
+ <div id="portal" class="portal" hidden>
+  <aside class="sidebar">
+   <a class="wordmark" href="/membros"><span class="crest" aria-hidden="true">HB</span><span>HRISTE<br><small>BOZE / MULTIJOGOS</small></span></a>
+   <div class="sidebar-edition"><span>ÁREA DO MEMBRO</span><span>HB / 01</span></div>
+   <p class="nav-label">SUA GUILDA</p>
+   <nav aria-label="Painel do membro">
+    <button data-view="news" class="active" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg><span>Mural da guilda</span><i aria-hidden="true">01</i></button>
+    <button data-view="identity"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="2"/><path d="M5 16c0-3 6-3 6 0m3-7h4m-4 4h4"/></svg><span>Minha carteira</span><i aria-hidden="true">02</i></button>
+    <button data-view="services"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8m-8 3h5"/></svg><span>Meus atendimentos</span><i aria-hidden="true">03</i></button>
+    <button data-view="migration"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/><path d="M5 11v8h8"/></svg><span>Minha imigração</span><i aria-hidden="true">04</i></button>
+   </nav>
+   <div class="sidebar-manifesto" aria-hidden="true"><span>✦</span><p>A GUILDA<br><strong>É QUEM<br>FAZ PARTE.</strong></p></div>
+   <div class="sidebar-bottom"><div class="member-sidebar-profile"><span id="member-avatar" class="profile-symbol" aria-hidden="true">HB</span><div><span>MEU REGISTRO</span><strong id="member-sidebar-name">Membro</strong><small id="member-rank">Membro</small></div></div><button id="logout" class="subtle">Sair da conta <span aria-hidden="true">↗</span></button></div>
+  </aside>
+  <main class="workspace" data-active-view="news">
+   <header class="topbar"><span>MINHA GUILDA <span class="topbar-dot">/</span> <strong id="view-label">Mural da guilda</strong></span><div class="topbar-actions"><span class="district-coordinate">HRISTE / BOZE</span><button id="refresh" class="subtle"><span aria-hidden="true">↻</span> Atualizar</button></div></header>
+   <p id="portal-message" class="portal-message" role="status" aria-live="polite"></p>
+   <section class="welcome" aria-label="Boas-vindas aa guilda">
+    <div class="welcome-copy"><div class="welcome-profile"><span id="welcome-avatar" class="profile-symbol" aria-hidden="true">HB</span><p class="eyebrow">BEM-VINDO,<strong id="member-name">MEMBRO</strong></p></div><h1>SEU LUGAR.<br><span>SUA HISTÓRIA.</span></h1><p>Sua identidade. A voz da guilda.<br>Tudo que nos conecta, em um só lugar.</p><div id="verification-badge" class="status-badge">Membro da guilda</div></div>
+    <div class="welcome-art-caption" aria-hidden="true"><span>✦</span><small>HRISTE<br>BOZE</small></div>
+    <div class="welcome-bottom"><span>UMA GUILDA. UM JURAMENTO.</span><span>RESPEITO · PRESENÇA · LEALDADE</span></div>
+   </section>
+   <div id="migration-banner" class="migration-banner" hidden><span aria-hidden="true">↗</span><div><strong>Sua história continua na nova guilda.</strong><p>Envie sua imigração no Discord usando seu HB-ID e seu nome no jogo.</p></div><button id="banner-migration" class="subtle">Acompanhar →</button></div>
+   <div class="member-quicklinks">
+    <button id="quick-card"><span class="quick-index" aria-hidden="true">01</span><span><strong>SUA IDENTIDADE</strong><small>A carteira que te representa.</small></span><span class="quick-arrow" aria-hidden="true">↗</span></button>
+    <button id="quick-services"><span class="quick-index" aria-hidden="true">02</span><span><strong>ESTAMOS POR AQUI</strong><small>Seu contato com a equipe.</small></span><span class="quick-arrow" aria-hidden="true">↗</span></button>
+    <div class="member-pulse"><span id="news-total">—</span><div>COMUNICADOS<br><strong>A VOZ DA GUILDA</strong></div></div>
+   </div>
+   <section id="view-news" class="view" aria-labelledby="news-heading">
+    <div class="section-heading"><div><p class="eyebrow">DIRETO DA ADMINISTRAÇÃO</p><h2 id="news-heading">A VOZ DA GUILDA<span class="orange">.</span></h2><p class="muted">O que acontece na guilda, você encontra aqui.</p></div><label class="search-label" for="notice-search"><span class="sr-only">Buscar avisos</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="notice-search" type="search" placeholder="Buscar comunicado"></label></div>
+    <div class="mural-tabs" role="group" aria-label="Filtrar comunicados"><button type="button" data-news-filter="all" class="active" aria-pressed="true">Todos os avisos</button><button type="button" data-news-filter="embed" aria-pressed="false">Publicados pelo bot</button><button type="button" data-news-filter="pinned" aria-pressed="false">Fixados <span aria-hidden="true">↗</span></button></div><div id="news-list" class="news-list" aria-live="polite"></div>
+   </section>
+   <section id="view-identity" class="view" aria-labelledby="identity-heading" hidden>
+    <div class="section-heading"><div><p class="eyebrow">REGISTRO OFICIAL / HB-ID</p><h2 id="identity-heading">VOCÊ FAZ PARTE<span class="orange">.</span></h2><p class="muted">Sua identidade na guilda. Autêntica, pessoal e sempre com você.</p></div></div>
+    <div class="identity-layout">
+     <article class="identity-card">
+      <div class="identity-card-heading"><span>HRISTE BOZE</span><span>REGISTRO OFICIAL ↗</span></div>
+      <div class="identity-preview-stage"><img id="identity-preview" alt="Sua carteira oficial HB-ID com HBCode" hidden><div id="identity-preview-placeholder"><img src="/clan-mark.svg" alt=""><p>SUA IDENTIDADE.<br>SUA GUILDA.</p></div></div>
+      <div class="identity-caption"><div class="identity-owner"><span id="identity-avatar" class="profile-symbol" aria-hidden="true">HB</span><div><p class="card-label">TITULAR</p><h3 id="identity-name"></h3></div></div><span id="identity-rank" class="status-badge"></span></div>
+      <p class="card-label">HB-ID / REGISTRO DA GUILDA</p><p id="identity-idrkc" class="idrkc-number"></p>
+      <div class="identity-proof"><span aria-hidden="true">✓</span><span>Código de barras verificável.<br><small>Apresente o PNG original ao bot.</small></span></div>
+     </article>
+     <article class="detail-card"><p class="eyebrow">OS SEUS DADOS</p><h3>SEU CADASTRO</h3><dl id="identity-details"></dl><button id="download-card" class="primary">Baixar carteira PNG <span aria-hidden="true">↓</span></button><p id="card-help" class="form-help">Você também pode receber a carteira no privado usando /ver-sua-carteira no Discord.</p><div class="identity-note"><span aria-hidden="true">↗</span><p>Um código. A sua história.<br><strong>Não compartilhe sua carteira com outras pessoas.</strong></p></div></article>
+    </div>
+   </section>
+   <section id="view-services" class="view" aria-labelledby="services-title" hidden>
+    <div class="section-heading"><div><p class="eyebrow">CENTRAL DE ATENDIMENTO</p><h2 id="services-title">CONTE COM A EQUIPE<span class="orange">.</span></h2><p class="muted">Seus tickets e denúncias, em um espaço reservado.</p></div></div>
+    <div class="service-guide"><span class="service-guide-icon" aria-hidden="true">↗</span><div><strong>TUDO COMEÇA NO DISCORD.</strong><p>Envie sua própria carteira HB-ID ao bot. Para denunciar, informe apenas o nick da pessoa. Depois da validação, a administração recebe seu contato.</p></div><button id="service-card" class="subtle" type="button">Minha carteira →</button></div>
+    <div class="services-heading"><h3>SUAS SOLICITAÇÕES</h3><span id="service-count"></span></div><div id="services-list" aria-live="polite"></div>
+   </section>
+   <section id="view-migration" class="view" aria-labelledby="migration-heading" hidden>
+    <div class="section-heading"><div><p class="eyebrow">O PRÓXIMO CAPÍTULO</p><h2 id="migration-heading">A HISTÓRIA CONTINUA<span class="orange">.</span></h2><p class="muted">Sua chegada ao GUILDA HRISTE BOZE.</p></div></div>
+    <article class="migration-card"><div class="migration-card-marker" aria-hidden="true">HB / 01 <span>↗</span></div><div id="migration-status" class="status-badge">Consultando…</div><h3 id="migration-title">Sua solicitação</h3><p id="migration-description" class="muted"></p><dl id="migration-details"></dl><div class="migration-how"><strong>SEU CAMINHO ATÉ AQUI</strong><ol><li><span>01</span><p>No Discord, encontre o aviso de imigração publicado pelo bot.</p></li><li><span>02</span><p>Envie o HB-ID da sua carteira e seu nome no jogo.</p></li><li><span>03</span><p>Aguarde a análise. Se aprovada, a nova carteira chega no seu privado.</p></li></ol></div></article>
+   </section>
+   <footer class="workspace-footer"><span>HRISTE BOZE <i>/</i> MINHA GUILDA</span><span>A GUILDA É QUEM FAZ PARTE.</span></footer>
+  </main>
+ </div>
+</body>
+</html>
